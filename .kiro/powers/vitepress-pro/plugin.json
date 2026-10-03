@@ -1,0 +1,62 @@
+{
+  "name": "vitepress-pro",
+  "displayName": "VitePress Pro",
+  "version": "1.0.0",
+  "description": "VitePress 专家能力包：自动生成侧边栏、Mermaid 图表优化、多语言文档同步",
+  "keywords": [
+    "vitepress",
+    "documentation",
+    "sidebar",
+    "mermaid",
+    "i18n",
+    "multilingual"
+  ],
+  "author": "VitePress Team",
+  "license": "MIT",
+  "capabilities": {
+    "sidebarGeneration": {
+      "enabled": true,
+      "description": "自动扫描 src/ 目录生成侧边栏配置"
+    },
+    "mermaidOptimization": {
+      "enabled": true,
+      "description": "优化 Mermaid 图表语法，提供最佳实践建议"
+    },
+    "i18nSync": {
+      "enabled": true,
+      "description": "检测多语言文档结构一致性，自动提示缺失文件"
+    },
+    "configValidation": {
+      "enabled": true,
+      "description": "验证 VitePress 配置文件语法和结构"
+    }
+  },
+  "commands": [
+    {
+      "name": "generateSidebar",
+      "description": "扫描目录并生成侧边栏配置",
+      "usage": "为指定目录生成 VitePress 侧边栏配置"
+    },
+    {
+      "name": "optimizeMermaid",
+      "description": "优化 Markdown 中的 Mermaid 图表",
+      "usage": "分析并优化 Mermaid 图表语法和性能"
+    },
+    {
+      "name": "syncI18n",
+      "description": "同步多语言文档结构",
+      "usage": "检查并同步中英越三语文档文件结构"
+    },
+    {
+      "name": "validateConfig",
+      "description": "验证 VitePress 配置",
+      "usage": "检查 .vitepress/config.ts 配置的正确性"
+    }
+  ],
+  "settings": {
+    "defaultLocales": ["zh", "en", "vi"],
+    "sidebarDepth": 2,
+    "autoCollapse": true,
+    "mermaidTheme": "default"
+  }
+}

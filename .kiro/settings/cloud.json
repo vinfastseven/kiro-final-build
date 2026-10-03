@@ -1,0 +1,16 @@
+{
+  "cloud": {
+    "enabled": true,
+    "syncMode": "auto",
+    "includePaths": [
+      ".kiro/steering/",
+      ".kiro/hooks/",
+      ".kiro/agents/",
+      ".kiro/powers/"
+    ],
+    "environment": {
+      "NODE_ENV": "production",
+      "VITEPRESS_BASE": "/"
+    }
+  }
+}

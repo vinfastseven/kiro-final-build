@@ -1,0 +1,69 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "fetch"
+      ],
+      "description": "网页内容抓取服务 - 用于获取外部文档、API 参考和技术资料"
+    },
+    "github": {
+      "command": "uvx",
+      "args": ["mcp-server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "search_repositories",
+        "get_file_contents",
+        "list_commits"
+      ],
+      "description": "GitHub 交互服务 - 用于查询仓库信息、读取代码和提交历史"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "e:\\project_demo\\01-项目练习\\vitepress\\01-docs"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "read_file",
+        "list_directory"
+      ],
+      "description": "本地文件系统服务 - 用于读取项目文件和目录结构（写操作需手动批准）"
+    },
+    "brave-search": {
+      "command": "uvx",
+      "args": ["mcp-server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": true,
+      "autoApprove": [],
+      "description": "Brave 搜索服务 - 用于搜索最新技术文档和解决方案（需配置 API Key）"
+    },
+    "sqlite": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-sqlite",
+        "--db-path",
+        "e:\\project_demo\\01-项目练习\\vitepress\\01-docs\\.kiro\\data\\docs.db"
+      ],
+      "disabled": true,
+      "autoApprove": [
+        "read-query"
+      ],
+      "description": "SQLite 数据库服务 - 用于存储和查询文档元数据（可选功能）"
+    }
+  }
+}

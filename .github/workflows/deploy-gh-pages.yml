@@ -1,0 +1,95 @@
+# GitHub Pages 部署工作流
+#
+# 功能说明：
+# - 自动构建 VitePress 站点
+# - 部署到 GitHub Pages
+# - 支持自定义域名
+# - 使用 GitHub Actions 内置的 GITHUB_TOKEN，无需额外配置
+
+name: Deploy to GitHub Pages
+
+# 触发条件
+on:
+  # 推送到 main 分支时触发
+  push:
+    branches:
+      - main
+
+  # 支持手动触发
+  workflow_dispatch:
+
+# 设置 GITHUB_TOKEN 权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 只允许一个部署任务同时运行
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # 构建任务
+  build:
+    name: Build VitePress Site
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取所有历史记录，用于显示最后更新时间
+
+      # 2. 设置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. 设置 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      # 4. 安装依赖
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 5. 构建站点
+      - name: Build VitePress Site
+        run: pnpm run build
+        env:
+          # 设置基准路径（如果部署到 https://username.github.io/repo-name/）
+          # 需要设置为 /repo-name/，如果是 https://username.github.io/ 则设为 /
+          VITE_BASE: ${{ github.event.repository.name != github.event.repository.owner.login + '.github.io' && format('/{0}/', github.event.repository.name) || '/' }}
+          # 设置站点 URL
+          VITE_SITE_URL: ${{ github.event.repository.name != github.event.repository.owner.login + '.github.io' && format('https://{0}.github.io/{1}', github.event.repository.owner.login, github.event.repository.name) || format('https://{0}.github.io', github.event.repository.owner.login) }}
+
+      # 6. 配置 GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 7. 上传构建产物
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  # 部署任务
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

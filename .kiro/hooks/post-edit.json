@@ -1,0 +1,18 @@
+{
+  "name": "Post-Edit Build Check",
+  "version": "1.0.0",
+  "description": "编辑文件后自动触发构建预览检查，确保文档内容正确渲染且无构建错误",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "src/**/*.md",
+      ".vitepress/config/**/*.ts",
+      ".vitepress/theme/**/*.vue",
+      ".vitepress/theme/**/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "检测到文档或配置文件变更。请执行以下检查：\n1. 运行 `pnpm run typecheck` 验证 TypeScript 类型\n2. 如果修改了 .md 文件，确认是否需要同步更新对应语言版本（en/vi）\n3. 如果修改了配置文件，验证配置语法是否正确\n4. 可选：运行 `pnpm run build` 进行完整构建测试（仅在需要时执行）"
+  }
+}
