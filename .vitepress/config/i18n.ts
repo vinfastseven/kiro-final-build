@@ -15,14 +15,14 @@ import type { LocaleConfig } from 'vitepress'
  */
 export const localesConfig: LocaleConfig = {
   root: {
-    label: '简体中文',
-    lang: 'zh-CN',
-    link: '/'
-  },
-  en: {
     label: 'English',
     lang: 'en-US',
-    link: '/en/'
+    link: '/'
+  },
+  zh: {
+    label: '简体中文',
+    lang: 'zh-CN',
+    link: '/zh/'
   },
   vi: {
     label: 'Tiếng Việt',

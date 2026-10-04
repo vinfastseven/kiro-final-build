@@ -143,20 +143,20 @@ export default defineConfig({
         ...themeSharedConfig,
         
         // 导航配置（结构 + 中文翻译）
-        nav: mergeNav(navStructure, zhNavText, ''),
+        nav: mergeNav(navStructure, enNavText, ''),
         
         // 侧边栏配置（结构 + 中文翻译）
-        sidebar: mergeSidebar(sidebarStructure, zhSidebarText, ''),
+        sidebar: mergeSidebar(sidebarStructure, enSidebarText, ''),
         
         // 主题 UI 配置（页脚、404 等）
-        ...mergeThemeConfig(themeSharedConfig, zhUIText, editLinkPattern)
+        ...mergeThemeConfig(themeSharedConfig, enUIText, editLinkPattern)
       }
     },
     
     // ========== 英文 ==========
-    en: {
-      label: localesConfig.en.label,
-      link: localesConfig.en.link,
+    zh: {
+      label: localesConfig.zh.label,
+      link: localesConfig.zh.link,
       
       // 元数据（包含 title, description, lang 等）
       ...enMetaData,
@@ -167,10 +167,10 @@ export default defineConfig({
         ...themeSharedConfig,
         
         // 导航配置（结构 + 英文翻译）
-        nav: mergeNav(navStructure, enNavText, 'en'),
+        nav: mergeNav(navStructure, enNavText, 'zh'),
         
         // 侧边栏配置（结构 + 英文翻译）
-        sidebar: mergeSidebar(sidebarStructure, enSidebarText, 'en'),
+        sidebar: mergeSidebar(sidebarStructure, enSidebarText, 'zh'),
         
         // 主题 UI 配置
         ...mergeThemeConfig(themeSharedConfig, enUIText, editLinkPattern)
